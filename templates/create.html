@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<main role="main" xmlns="http://www.w3.org/1999/html">
+<!--    <section class="jumbotron text-center">-->
+<!--        <div class="container">-->
+<!--        <h1 class="jumbotron-heading">{{ title }}</h1>-->
+<!--        <p class="lead text-muted">-->
+<!--            {{ paragraph }}-->
+<!--        </p>-->
+<!--        </div>-->
+<!--    </section>-->
+
+    <div class="album bg-light">
+        <div class="container">
+ <h1 class="text-center">{{ title }}</h1>
+        <div class="row">
+        
+                </div>
+            </div>
+            </div>
+
+    </main>
+
+
+<!-- Wrapper container -->
+<div class="container py-4">
+
+  <!-- Bootstrap 5 starter form -->
+  <form id="contactForm" method="post">
+    {% csrf_token %}
+    <!-- Name input -->
+    <div class="mb-3">
+      <label class="form-label" for="items_name">items_name</label>
+      <input class="form-control" name="items_name" value="{{ obj.items_name }}" id="items_name" type="text" placeholder="items_name" data-sb-validations="required" />
+      <div class="invalid-feedback" data-sb-feedback="name:required">Name is required.</div>
+    </div>
+
+    <!-- Email address input -->
+    <div class="mb-3">
+      <label class="form-label" for="price">price</label>
+      <input class="form-control"  name="price"  value="{{ obj.price}}" id="price" type="price" placeholder="price" data-sb-validations="required, phone" value="{{ obj.price}}" />
+
+    </div>
+
+    <!-- Message input -->
+    <div class="mb-3">
+      <label class="form-label" for="total">total</label>
+      <input class="form-control" id="total" type="text" placeholder="total"  data-sb-validations="required" name="total" value= "{{ obj.total}}" />
+      <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>
+    </div>
+
+     <div class="mb-3">
+      <label class="form-label" for="amount">amount</label>
+     <textarea class="form-control" id="amount" type="text" placeholder="amount"  data-sb-validations="required" name="amount">{{ obj.amount }}</textarea>
+      <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>
+    </div>
+
+
+    <!-- Form submissions success message -->
+    <div class="d-none" id="submitSuccessMessage">
+      <div class="text-center mb-3">Form submission successful!</div>
+    </div>
+
+    <!-- Form submissions error message -->
+<!--    <div class="d-none" id="submitErrorMessage">-->
+<!--      <div class="text-center text-danger mb-3">Error sending message!</div>-->
+<!--    </div>-->
+
+    <!-- Form submit button -->
+    <div class="d-grid">
+      <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+
+    </div>
+
+  </form>
+</div>
+
+<!-- SB Forms JS -->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    {% endblock %}
