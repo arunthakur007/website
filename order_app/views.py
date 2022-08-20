@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from .models import order
+from .models import Order
 
 def home(request):
     title = "Welcome"
@@ -13,7 +13,7 @@ def create(request):
         price = request.POST.get('price')
         total = request.POST.get('total')
         amount = request.POST.get('amount')
-        g = order(items_name=items_name,price=price,total=total,amount=amount)
+        g = Order(items_name=items_name,price=price,total=total,amount=amount)
         g.save()
         # this code will redirect my page to users
         return HttpResponseRedirect("/users")
@@ -23,7 +23,7 @@ def create(request):
 
 
 def reterive(request):
-    obj = order.objects.all()
+    obj = Order.objects.all()
     print(obj)
 
     return render(request,'users.html',{"obj":obj})
@@ -34,14 +34,20 @@ def update(request,id):
         price = request.POST.get('price')
         total = request.POST.get('total')
         amount = request.POST.get('amount')
-        obj = order.objects.get(id=id)
+        obj = Order.objects.get(id=id)
         obj.items_name = items_name
         obj.price = price
         obj.total = total
         obj.amount = amount
         obj.save()
         return HttpResponseRedirect("/users")
-    obj = get_object_or_404(order,id=id) #GeeksModel.objects.all().filter(id=id)
+    obj = get_object_or_404(Order,id=id) #GeeksModel.objects.all().filter(id=id)
     title = "Update"
     paragraph = "Update the record"
     return render(request,'create.html',{"title":title,"paragraph":paragraph,"obj":obj})
+
+
+
+
+
+
