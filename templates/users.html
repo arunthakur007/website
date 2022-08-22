@@ -4,19 +4,22 @@
 <div class="container mt-5">
 <table class="table">
   <thead>
+<!--  order:- -->
     <tr>
       <th scope="col">Sr.</th>
+        <th scope="col">store</th>
       <th scope="col">items_name</th>
       <th scope="col">price</th>
       <th scope="col">total</th>
       <th scope="col">amount</th>
       <th scope="col">Action</th>
     </tr>
-  </thead>
+   </thead>
   <tbody>
   {% for i in obj%}
     <tr>
       <td scope="row">{{ i.id }}</td>
+        <td>{{ i.store}}</td>
       <td>{{ i.items_name }}</td>
       <td>{{ i.price}}</td>
       <td>{{ i.total }}</td>
@@ -27,9 +30,95 @@
     </tr>
   {% endfor %}
   </tbody>
+
+<!--profiles-->
+   <thead>
+
+  <tr>
+      <th scope="col">Sr.</th>
+      <th scope="col">Profile</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Action</th>
+    </tr>
+   </thead>
+
+    <tbody>
+  {% for i in obj_profile%}
+    <tr>
+      <td scope="row">{{ i.id }}</td>
+      <td>{{ i.user.username }}</td>
+      <td>{{ i.user.first_name }}</td>
+      <td>{{ i.user.last_name }}</td>
+      <td>{{ i.user.email }}</td>
+        <td>
+      <a type="button" href="/update/{{i.id}}" class="btn btn-sm btn-outline-success">Update</a>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+
+<!--store_information-->
+
+   <thead>
+
+  <tr>
+      <th scope="col">Sr.</th>
+      <th scope="col">store_information</th>
+      <th scope="col">Action</th>
+
+
+    </tr>
+
+ </thead>
+
+    <tbody>
+  {% for i in store%}
+    <tr>
+      <td scope="row">{{ i.id }}</td>
+      <td>{{ i.store}}</td>
+        <td>
+      <a type="button" href="/update/{{i.id}}" class="btn btn-sm btn-outline-success">Update</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+
+
+
+<!--store_item_information-->
+
+
+   <thead>
+  <tr>
+      <th scope="col">Sr.</th>
+      <th scope="col">store_information</th>
+      <th scope="col">items_name</th>
+      <th scope="col">price</th>
+      <th scope="col">total</th>
+      <th scope="col">order_status</th>
+      <th scope="col">Action</th>
+    </tr>
+
+  </thead>
+  <tbody>
+  {% for i in obj_store_item%}
+    <tr>
+      <td scope="row">{{ i.id }}</td>
+        <td>{{ i.store }}</td>
+      <td>{{ i.items_name }}</td>
+      <td>{{ i.price}}</td>
+      <td>{{ i.total }}</td>
+        <td>{{ i.order_status }}</td>
+      <td>
+      <a type="button" href="/update/{{i.id}}" class="btn btn-sm btn-outline-success">Update</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
 </table>
 </div>
-
-
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 {% endblock %}
+
