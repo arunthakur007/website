@@ -11,7 +11,12 @@ class store_information(models.Model):
     def __str__(self):
         return self.store
 
-
+ORDER_STATUS_CHOICES = (
+    ('placed','Placed'),
+    ('packed','Packed'),
+    ('transit', 'Transit'),
+    ('delivered',' Delivered'),
+)
 class Order(models.Model):
     store = models.ForeignKey(store_information, on_delete=models.CASCADE)
     items_name=models.CharField(max_length=200)
@@ -19,7 +24,12 @@ class Order(models.Model):
     total=models.DecimalField(max_digits=10, decimal_places=2)
     amount= models.DecimalField(max_digits=8, decimal_places=2)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    create_data = models.DateTimeField(auto_now_add=True)
+    order_status = models.CharField(max_length=9, choices=ORDER_STATUS_CHOICES, default='placed')
 
+
+    def __str__(self):
+        return self.items_name
 
 class user_information(models.Model):
     order_id = models.AutoField(primary_key=True)
@@ -29,18 +39,13 @@ class user_information(models.Model):
     phone = models.CharField(max_length=20)
 
 
-ORDER_STATUS_CHOICES = (
-    ('placed','Placed'),
-    ('packed','Packed'),
-    ('transit', 'Transit'),
-    ('delivered',' Delivered'),
-)
+
 class store_item(models.Model):
     store = models.ForeignKey(store_information, on_delete=models.CASCADE)
     items_name = models.CharField(max_length=200)
     total= models.DecimalField(max_digits=10, decimal_places=2)
     price=models.DecimalField(max_digits=10, decimal_places=2)
-    order_status = models.CharField(max_length=9, choices=ORDER_STATUS_CHOICES, default='pla')
+
 
     def __str__(self):
         return str(self.store) + " : " + self.items_name

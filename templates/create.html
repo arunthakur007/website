@@ -13,51 +13,45 @@
     <div class="album bg-light">
         <div class="container">
  <h1 class="text-center">{{ title }}</h1>
-        <div class="row">
-        
-                </div>
-            </div>
-            </div>
-
-    </main>
-
-<!-- Wrapper container -->
-<div class="container py-4">
-
-  <!-- Bootstrap 5 starter form -->
-  <form id="contactForm" method="post">
+{% if store %}
+ <form  method="post">
     {% csrf_token %}
     <!-- Name input -->
   <label for="store">Choose a store:</label>
-  <select name="store" id="store">
-    <option value="1">food_store</option>
-    <option value="himachali_food_store">himachali_food_store</option>
-<!--    <option value="opel">Opel</option>-->
-<!--    <option value="audi">Audi</option>-->
+  <select name="store" id="store" class="form-control form-select">
+      <option value="none" selected>--select--</option>
+    {% for store_info in store%}
+    <option value="{{store_info.id }}">{{ store_info }}</option>
+    {% endfor %}
+
   </select>
-  <br><br>
+     <br>
+    <button class="btn btn-primary btn-md" type="submit">Submit</button>
+ </form>
 
+{% else %}
+ <form id="contactForm" method="post">
+    {% csrf_token %}
 
-
-
-<label class="form-label" >items_name</label>
+<div class="container py-4">
+<label class="form-label">items_name</label>
 <div class="form-floating ">
   <select class="form-control form-select" id="floatingSelect" aria-label="Floating label select example" name="items_name">
     <option selected>select the food_item</option>
-    <option value="apple">apple</option>
-    <option value="mango">mango</option>
-    <option value="orange">orange</option>
+      {% for item in store_items%}
+    <option value="{{ item.items_name }}">{{ item.items_name }} : {{ item.price  }}</option>
+    {% endfor %}
   </select>
 
 
 </div>
 
-    <!-- Email address input -->
-    <div class="mb-3">
-      <label class="form-label" for="price">price</label>
-      <input class="form-control"  name="price"  value="{{ obj.price}}" id="price" type="text" placeholder="price" data-sb-validations="required, phone" value="{{ obj.price}}" />
+<!--     Email address input-->
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label" for="price">price</label>-->
+<!--      <input class="form-control"  name="price"  value="{{ obj.price}}" id="price" type="text" placeholder="price" data-sb-validations="required, phone" value="{{ obj.price}}" />-->
 
-    </div>
+<!--    </div>-->
 
     <!-- Message input -->
     <div class="mb-3">
@@ -65,34 +59,19 @@
       <input class="form-control" id="total" type="text" placeholder="total"  data-sb-validations="required" name="total" value= "{{ obj.total}}" />
       <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>
     </div>
-
-<!--     <div class="mb-3">-->
-<!--      <label class="form-label" for="amount">amount</label>-->
-<!--     <textarea class="form-control" id="amount" type="text" placeholder="amount"  data-sb-validations="required" name="amount">{{ obj.amount }}</textarea>-->
-<!--      <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>-->
-<!--    </div>-->
-
-
-    <!-- Form submissions success message -->
     <div class="d-none" id="submitSuccessMessage">
       <div class="text-center mb-3">Form submission successful!</div>
     </div>
 
-    <!-- Form submissions error message -->
-<!--    <div class="d-none" id="submitErrorMessage">-->
-<!--      <div class="text-center text-danger mb-3">Error sending message!</div>-->
-<!--    </div>-->
-
-    <!-- Form submit button -->
     <div class="d-grid">
       <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
 
     </div>
 
   </form>
+    {% endif%}
 </div>
 
-<!-- SB Forms JS -->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
-    {% endblock %}
+{% endblock %}
